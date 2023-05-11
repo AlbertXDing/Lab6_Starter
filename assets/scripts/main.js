@@ -64,7 +64,7 @@ function saveRecipesToStorage(recipes) {
   //            header. It is possible in only a single line, but should
   //            be no more than a few lines.
   let stringRecipes = JSON.stringify(recipes);
-  localStorage.setItem('recipes', stringRecipes)
+  localStorage.setItem('recipes', stringRecipes);
 }
 
 /**
@@ -74,11 +74,12 @@ function saveRecipesToStorage(recipes) {
 function initFormHandler() {
 
   // B2. TODO - Get a reference to the <form> element
-  let form = document.querySelector('form')
+  let form = document.querySelector('form');
+  let main = document.querySelector('main');
   // B3. TODO - Add an event listener for the 'submit' event, which fires when the
   //            submit button is clicked
-  let submitButton = document.querySelector('button[type="submit"]');
-  submitButton.addEventListener('submit', function(event) {
+  // let submitButton = document.querySelector('button[type="submit"]');
+  form.addEventListener('submit', function(event) {
     let formData = new FormData(form);
     let recipeObject = {}; 
     for(let [key, value] of formData.entries()){
@@ -88,7 +89,8 @@ function initFormHandler() {
     recipeCard.data = recipeObject; 
     main.append(recipeCard);
 
-    let temp = getRecipesFromStorage().push(recipeObject);
+    let temp = getRecipesFromStorage();
+    temp.push(recipeObject);
     saveRecipesToStorage(temp);
   });
   // Steps B4-B9 will occur inside the event listener from step B3
@@ -107,10 +109,10 @@ function initFormHandler() {
   // B10. TODO - Get a reference to the "Clear Local Storage" button
   let clsButton = document.querySelector('.danger');
 // B11. TODO - Add a click event listener to clear local storage button
-clsButton.addEventListener('click', function(event) {
-  localStorage.clear();
-  main.textContent = '';
-});
+  clsButton.addEventListener('click', function(event) {
+    localStorage.clear();
+    main.textContent = '';
+  });
   // Steps B12 & B13 will occur inside the event listener from step B11
   // B12. TODO - Clear the local storage
   // B13. TODO - Delete the contents of <main>
